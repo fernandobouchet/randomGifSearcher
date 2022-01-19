@@ -11,13 +11,11 @@ function searchGif(gifName) {
     `https://api.giphy.com/v1/gifs/translate?api_key=67nbgDN20hLwcwImpaWQUFYtHt3Iq3i2&s=${gifName}`,
     { mode: "cors" }
   )
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (response) {
+    .then((response) => response.json())
+    .then((response) => {
       img.src = response.data.images.original.url;
     })
-    .catch(function (err) {
+    .catch((err) => {
       alert("Image not found");
     });
 }
