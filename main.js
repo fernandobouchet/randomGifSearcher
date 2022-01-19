@@ -1,23 +1,23 @@
 const searchText = document.getElementById("search-text");
 const searchButton = document.getElementById("search-button");
+const MyApiKey = "67nbgDN20hLwcwImpaWQUFYtHt3Iq3i2";
+const img = document.querySelector("img");
 
 searchButton.addEventListener("click", () => {
   searchGif(searchText.value);
 });
 
-function searchGif(gifName) {
-  const img = document.querySelector("img");
-  fetch(
-    `https://api.giphy.com/v1/gifs/translate?api_key=67nbgDN20hLwcwImpaWQUFYtHt3Iq3i2&s=${gifName}`,
-    { mode: "cors" }
-  )
-    .then((response) => response.json())
-    .then((response) => {
-      img.src = response.data.images.original.url;
-    })
-    .catch((err) => {
-      alert("Image not found");
-    });
+async function searchGif(gifName) {
+  try {
+    const response = await fetch(
+      `https://api.giphy.com/v1/gifs/translate?api_key=${MyApiKey}&s=${gifName}`,
+      { mode: "cors" }
+    );
+    const gifData = await response.json();
+    img.src = gifData.data.images.original.url;
+  } catch (error) {
+    alert("Gif not found!");
+  }
 }
 
 //document.cookie = "SameSite=None; Secure";
